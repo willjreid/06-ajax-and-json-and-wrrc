@@ -33,7 +33,7 @@ Article.prototype.toHtml = function() {
 // REVIEW: This function will take the rawData, how ever it is provided, and use it to instantiate all the articles. This code is moved from elsewhere, and encapsulated in a simply-named function for clarity.
 
 // COMMENTED: Where is this function called? What does 'rawData' represent now? How is this different from previous labs?
-// PUT YOUR RESPONSE HERE...The rawData function will be called on the else part of the if statement in the fetch.all function if local storage does not have the data already. rawData in previous labs was used as a object method, and now rawData represets the returned data from hackerIpsum file.
+// The rawData function will be called on the else part of the if statement in the fetchAll function if local storage does not have the data already. rawData in previous labs was used as a object method, and now rawData represets the returned data from hackerIpsum file.
 Article.loadAll = rawData => {
   rawData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)))
 
@@ -49,10 +49,10 @@ Article.fetchAll = () => {
     //DONE: This function takes in an argument. What do we pass in to loadAll()?
     Article.loadAll(JSON.parse(localStorage.rawData));
 
-    //DONE: What method do we call to render the index page? >> probably initIndexPage >>
+    //DONE: What method do we call to render the index page?
     articleView.initIndexPage();
     // COMMENTED: How is this different from the way we rendered the index page previously? What the benefits of calling the method here?
-    // PUT YOUR RESPONSE HERE ... if we call it on the index.html page, it will load without the benefit of getting data items from localStorage. If we call it here, we can trigger the loading of data items from localStorage as the page is "built."
+    // If we call it on the index.html page, it will load without the benefit of getting data items from localStorage. If we call it here, we can trigger the loading of data items from localStorage as the page is "built."
 
   } else {
     // DONE: When we don't already have the rawData:
@@ -65,8 +65,8 @@ Article.fetchAll = () => {
       Article.loadAll(rawData);
       articleView.initIndexPage();
     });
-    // COMMENT: Discuss the sequence of execution in this 'else' conditional. Why are these functions executed in this order?
-    // PUT YOUR RESPONSE HERE
+    // COMMENTED: Discuss the sequence of execution in this 'else' conditional. Why are these functions executed in this order?
+    // First we get the data content from the .json file, then trigger the successCallback function to hanlde rawData.  Once we have the data from the .josn file, then we can set the new Item rawData within localStorage and assign it the stringified data from rawData.  Then the Article constructor can load all the rawData contents.  Finally, when all the article content data is available, we can call the initIndexPage function to kick off all the (sub)functions that build the page and the dropdowns.  We could have used .done in the .getJSON function instead of the comma to indicate successCallback function.
     //
   }
 }
